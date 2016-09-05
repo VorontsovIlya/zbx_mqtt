@@ -1,0 +1,16 @@
+#!/bin/bash
+
+ZBX_SOURCE=/home/cubie/zabbix-3.0.4
+
+echo "Building file: src/main.c"
+echo "Invoking: GCC C Compiler"
+gcc -I$ZBX_SOURCE/include -I$ZBX_SOURCE/src/libs -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "src/main.c"
+echo "Finished building: src/main.c"
+
+
+echo "Building target: zbx_mqtt"
+echo "Invoking: GCC C Linker"
+gcc -L$ZBX_SOURCE/src/libs/zbxlog -L$ZBX_SOURCE/src/libs/zbxcrypto -L$ZBX_SOURCE/src/libs/zbxjson -L$ZBX_SOURCE/src/libs/zbxconf -L$ZBX_SOURCE/src/libs/zbxnix -L$ZBX_SOURCE/src/libs/zbxsys -L$ZBX_SOURCE/src/libs/zbxcommon -L$ZBX_SOURCE/src/libs/zbxcomms -o "zbx_mqtt"  ./src/main.o   -lzbxcomms -lzbxcommon -lzbxlog -lzbxsys -lzbxnix -lzbxcrypto -lzbxconf -lzbxjson -lmosquitto
+echo "Finished building target: zbx_mqtt"
+
+strip zbx_mqtt
