@@ -421,7 +421,7 @@ int main(int argc, char **argv) {
   parse_commandline(argc, argv);
 
   if (argc != 3) {
-    printf("Config file not defined\n");
+    printf("Config file not defined, use option -c . Example: zbx_mqtt -c zbx_mqtt.conf\n");
     exit(1);
   }
 
